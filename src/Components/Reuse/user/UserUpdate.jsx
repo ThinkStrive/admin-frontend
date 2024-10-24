@@ -30,10 +30,23 @@ const UserUpdate = ({
 
   const handleChangeCreateUser = (e) => {
     const { name, value } = e.target;
-    setNewUserData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+
+    // Check if the name belongs to the project plan fields
+    if (["project1", "project2", "project4"].includes(name)) {
+      setNewUserData((prevState) => ({
+        ...prevState,
+        projectsPlan: {
+          ...prevState.projectsPlan,
+          [name]: value, // Update specific project plan field
+        },
+      }));
+    } else {
+      // Otherwise, update the rest of newUserData
+      setNewUserData((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
 
   const handleClickCreateNewUser = async () => {
@@ -44,7 +57,21 @@ const UserUpdate = ({
         userEmail: newUserData.userEmail,
         password: newUserData.password,
         mobileNumber: newUserData.mobileNumber,
+        subscriptionType: newUserData.subscriptionType,
+        projectsPlan: {
+          project1: newUserData.projectsPlan.project1,
+          project3: newUserData.projectsPlan.project2,
+          project4: newUserData.projectsPlan.project4,
+        },
+        subscriptionDate: '',
+        subscriptionTime: '',
       };
+
+      if (newUserData.subscriptionType !== singleUserData.subscriptionType) {
+        data.subscriptionDate = moment().format("YYYY-MM-DD");
+        data.subscriptionTime = moment().format("HH:mm:ss");
+      }
+  
 
       await axios
         .put(`${UPDATE_SINGLE_USER}/${singleUserData._id}`, data)
@@ -74,7 +101,7 @@ const UserUpdate = ({
     try {
       await axios.delete(`${DELETE_SINGLE_USER}/${id}`).then((res) => {
         if (res.data.status) {
-          setUpdateUserModel(false)
+          setUpdateUserModel(false);
           setIsStateChanged(!isStateChanged);
           showToast("Deleted successfully", "success");
         }
@@ -118,7 +145,7 @@ const UserUpdate = ({
               <br />
               <Form.Control
                 autoComplete="off"
-                className="item-con-input-text bg-slate-200 "
+                className="item-con-input-text bg-slate-200"
                 type="text"
                 placeholder="Enter user name"
                 onChange={handleChangeCreateUser}
@@ -126,6 +153,7 @@ const UserUpdate = ({
                 value={newUserData.userName}
               />
             </Form.Group>
+
             <Form.Group
               controlId="formBasicEmail"
               className="input-item-con-group"
@@ -134,7 +162,7 @@ const UserUpdate = ({
               <br />
               <Form.Control
                 autoComplete="off"
-                className="item-con-input-text bg-slate-200 "
+                className="item-con-input-text bg-slate-200"
                 type="text"
                 placeholder="Enter user email"
                 onChange={handleChangeCreateUser}
@@ -142,6 +170,7 @@ const UserUpdate = ({
                 value={newUserData.userEmail}
               />
             </Form.Group>
+
             <Form.Group
               controlId="formBasicEmail"
               className="input-item-con-group"
@@ -150,7 +179,7 @@ const UserUpdate = ({
               <br />
               <Form.Control
                 autoComplete="off"
-                className="item-con-input-text bg-slate-200 "
+                className="item-con-input-text bg-slate-200"
                 type="text"
                 placeholder="Enter password"
                 onChange={handleChangeCreateUser}
@@ -158,6 +187,7 @@ const UserUpdate = ({
                 value={newUserData.password}
               />
             </Form.Group>
+
             <Form.Group
               controlId="formBasicEmail"
               className="input-item-con-group"
@@ -168,12 +198,133 @@ const UserUpdate = ({
               <br />
               <Form.Control
                 autoComplete="off"
-                className="item-con-input-text bg-slate-200 "
+                className="item-con-input-text bg-slate-200"
                 type="text"
                 placeholder="Enter mobile number"
                 onChange={handleChangeCreateUser}
                 name="mobileNumber"
                 value={newUserData.mobileNumber}
+              />
+            </Form.Group>
+
+            <Form.Group
+              controlId="formBasicSubscription"
+              className="input-item-con-group"
+            >
+              <Form.Label className="input-item-label">
+                Subscription Type *
+              </Form.Label>
+              <br />
+              <Form.Control
+                as="select"
+                className="item-con-input-text bg-slate-200"
+                onChange={handleChangeCreateUser}
+                name="subscriptionType"
+                value={newUserData.subscriptionType}
+              >
+                <option value="" disabled >Select Subscription Type</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+              </Form.Control>
+            </Form.Group>
+
+            {/* Project Plan Fields */}
+            <Form.Group
+              controlId="formBasicProject1"
+              className="input-item-con-group"
+            >
+              <Form.Label className="input-item-label">Project 1 *</Form.Label>
+              <br />
+              <Form.Control
+                as="select"
+                className="item-con-input-text bg-slate-200"
+                onChange={handleChangeCreateUser}
+                name="project1"
+                value={newUserData.projectsPlan?.project1 || ""}
+              >
+                <option value="" disabled>
+                  Give Access
+                </option>
+                <option value={true}>Enable</option>
+                <option value={false}>Disable</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group
+              controlId="formBasicProject2"
+              className="input-item-con-group"
+            >
+              <Form.Label className="input-item-label">Project 2 *</Form.Label>
+              <br />
+              <Form.Control
+                as="select"
+                className="item-con-input-text bg-slate-200"
+                onChange={handleChangeCreateUser}
+                name="project2"
+                value={newUserData.projectsPlan?.project2 || ""}
+              >
+                <option value="" disabled>
+                  Give Access
+                </option>
+                <option value={true}>Enable</option>
+                <option value={false}>Disable</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group
+              controlId="formBasicProject4"
+              className="input-item-con-group"
+            >
+              <Form.Label className="input-item-label">Project 4 *</Form.Label>
+              <br />
+              <Form.Control
+                as="select"
+                className="item-con-input-text bg-slate-200"
+                onChange={handleChangeCreateUser}
+                name="project4"
+                value={newUserData.projectsPlan?.project4 || ""}
+              >
+                <option value="" disabled>
+                  Give Access
+                </option>
+                <option value={true}>Enable</option>
+                <option value={false}>Disable</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group
+              controlId="formBasicEmail"
+              className="input-item-con-group"
+            >
+              <Form.Label className="input-item-label">Subscribed Date *</Form.Label>
+              <br />
+              <Form.Control
+                autoComplete="off"
+                className="item-con-input-text bg-slate-200"
+                type="date"
+                // placeholder="Enter password"
+                // onChange={handleChangeCreateUser}
+                // name="password"
+                value={newUserData.subscriptionDate}
+              />
+            </Form.Group>
+
+            <Form.Group
+              controlId="formBasicEmail"
+              className="input-item-con-group"
+            >
+              <Form.Label className="input-item-label">
+              Subscribed Time *
+              </Form.Label>
+              <br />
+              <Form.Control
+                autoComplete="off"
+                className="item-con-input-text bg-slate-200"
+                type="time"
+                // placeholder="Enter mobile number"
+                // onChange={handleChangeCreateUser}
+                // name="mobileNumber"
+                value={newUserData.subscriptionTime}
               />
             </Form.Group>
           </div>

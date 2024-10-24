@@ -80,7 +80,7 @@ const Login = ({ inputData, setInputData }) => {
   }
   return (
     <div className="flex justify-center items-center absolute right-[10vw] top-[15vh] z-3">
-      <div className="lg:h-[70vh] lg:w-[33vw] md:h-[65vh] md:w-[55vw] h-[55vh] w-[85vw] bg-white rounded-3xl px-10 py-6 shadow-lg flex flex-col justify-between items-start border">
+      <div className="lg:h-[65vh] lg:w-[33vw] md:h-[65vh] md:w-[55vw] h-[55vh] w-[85vw] bg-white rounded-3xl px-10 py-8 shadow-lg flex flex-col justify-between items-start border">
         <h2 className="text-black lg:text-4xl md:text-wl text-lg font-medium text-center m-0">
           Login
         </h2>

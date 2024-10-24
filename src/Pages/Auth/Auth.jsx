@@ -19,7 +19,7 @@ const Auth = () => {
   });
 
   return (
-    <div className={`h-screen w-screen relative bg-[#141414]`}>
+    <div className={`h-screen w-screen relative bg-[#040404]`}>
       <div className="">
         <Routes>
           <Route

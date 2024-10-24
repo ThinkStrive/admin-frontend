@@ -31,13 +31,13 @@ const Home = () => {
 
   return (
     <div
-      className={`flex h-screen w-screen ${theme == 'light' ? 'bg-white' : 'bg-[#040404]'} shadow-2xl rounded-2xl `}
+      className={`flex h-screen w-screen shadow-2xl rounded-2xl `}
     >
       <div className={`h-screen ${sideNavClassName} z-20`}>
           <SideNav setSideNavClassName={setSideNavClassName} />
       </div>
 
-      <div className={`home-main-con ${theme === 'light' ? 'bg-[#F4F6F7]' : 'bg-[#343434]' } w-full`} >
+      <div className={`home-main-con ${theme === 'light' ? 'bg-[#F4F6F7]' : 'bg-[#343434]' } w-full py-3 px-3`} >
         <Routes>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/users" element={<Users />} />

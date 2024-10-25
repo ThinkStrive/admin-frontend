@@ -28,6 +28,8 @@ const UserUpdate = ({
   const showToast = useToast();
   const [newUserData, setNewUserData] = useState(singleUserData);
 
+  console.log('singleUserData', singleUserData)
+
   const handleChangeCreateUser = (e) => {
     const { name, value } = e.target;
 
@@ -136,7 +138,7 @@ const UserUpdate = ({
       >
         <div className="con-con3">
           <h2 className="text-left w-full px-6 font-medium">Basic Info</h2>
-          <div className="w-full flex flex-wrap justify-between px-6">
+          <div className="w-full flex flex-wrap justify-between px-6 ">
             <Form.Group
               controlId="formBasicEmail"
               className="input-item-con-group"
@@ -222,7 +224,7 @@ const UserUpdate = ({
                 name="subscriptionType"
                 value={newUserData.subscriptionType}
               >
-                <option value="" disabled >Select Subscription Type</option>
+                <option value="none" disabled >Select Subscription Type</option>
                 <option value="daily">Daily</option>
                 <option value="weekly">Weekly</option>
                 <option value="monthly">Monthly</option>

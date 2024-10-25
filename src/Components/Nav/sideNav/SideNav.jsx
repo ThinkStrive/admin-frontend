@@ -37,9 +37,9 @@ const SideNav = ({ setSideNavClassName }) => {
   };
 
   return (
-    <div className={`pb-4 pt-2 flex flex-col justify-between h-full z-2}`} >
+    <div className={"pb-4 pt-2 flex flex-col justify-between h-full z-2"} >
       <i
-        className="fa-solid fa-x absolute font-bold lg:text-xl text-md right-2 top-4 mr-4 cursor-pointer sideNav-bars"
+        className="fa-solid fa-x absolute font-bold lg:text-xl text-md right-2 bg-black top-4 mr-4 cursor-pointer sideNav-bars"
         onClick={() => setSideNavClassName("home-sideNav-con")}
       ></i>
       <div>

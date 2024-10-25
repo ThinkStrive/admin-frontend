@@ -78,7 +78,7 @@ const UserAdd = ({
       >
         <div className="con-con3">
           <h2 className="text-left w-full px-6 font-medium">Basic Info</h2>
-          <div className="w-full flex flex-wrap justify-between px-6">
+          <div className="w-full flex flex-wrap justify-between px-6  ">
             <Form.Group
               controlId="formBasicEmail"
               className="input-item-con-group"

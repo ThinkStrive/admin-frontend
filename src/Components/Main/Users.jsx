@@ -73,6 +73,17 @@ const Users = () => {
       console.log("err", err);
     }
   };
+  // const handleClickFilterFunctionPaid = (event) => {
+  //   const selectedValue = event.target.value; // Get the selected value from the event
+  //   try {
+  //     const filteredData = duplicateData.filter((item) => {
+  //       return selectedValue === "all" || item.isPaid === true;
+  //     });
+  //     setAllUsers(filteredData);
+  //   } catch (err) {
+  //     console.log("err", err);
+  //   }
+  // };
 
   return (
     <>

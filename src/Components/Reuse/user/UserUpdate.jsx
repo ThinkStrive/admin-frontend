@@ -11,7 +11,6 @@ import moment from "moment";
 import Loading from "../../Resources/Loading";
 import { useToast } from "../../Resources/Toast";
 import {
-  ADD_NEW_USER,
   DELETE_SINGLE_USER,
   UPDATE_SINGLE_USER,
 } from "../../../api/ApiDetails";
@@ -67,9 +66,16 @@ const UserUpdate = ({
         },
         subscriptionDate: '',
         subscriptionTime: '',
+        isPaid : {
+          paid : (newUserData.subscriptionType !== 'none' || singleUserData.isPaid.paid === true) ? true : false,
+          paidType : singleUserData.isPaid.paidType === 'none' ? singleUserData.subscriptionType : 'none'
+        }
       };
 
-      if (newUserData.subscriptionType !== singleUserData.subscriptionType) {
+      if(newUserData.subscriptionType === 'none'){
+        data.subscriptionDate = singleUserData.subscriptionDate || '';
+        data.subscriptionTime = singleUserData.subscriptionTime || '';
+      }else if (newUserData.subscriptionType !== singleUserData.subscriptionType) {
         data.subscriptionDate = moment().format("YYYY-MM-DD");
         data.subscriptionTime = moment().format("HH:mm:ss");
       }
@@ -224,7 +230,7 @@ const UserUpdate = ({
                 name="subscriptionType"
                 value={newUserData.subscriptionType}
               >
-                <option value="none" disabled >Select Subscription Type</option>
+                <option value="none" >No Plan</option>
                 <option value="daily">Daily</option>
                 <option value="weekly">Weekly</option>
                 <option value="monthly">Monthly</option>

@@ -33,7 +33,7 @@ const UserUpdate = ({
     const { name, value } = e.target;
 
     // Check if the name belongs to the project plan fields
-    if (["project1", "project2", "project4"].includes(name)) {
+    if (["project1", "project2","project3", "project4"].includes(name)) {
       setNewUserData((prevState) => ({
         ...prevState,
         projectsPlan: {
@@ -61,10 +61,11 @@ const UserUpdate = ({
         subscriptionType: newUserData.subscriptionType,
         projectsPlan: {
           project1: newUserData.projectsPlan.project1,
-          project3: newUserData.projectsPlan.project2,
+          project2: newUserData.projectsPlan.project2,
+          project3: newUserData.projectsPlan.project3,
           project4: newUserData.projectsPlan.project4,
         },
-        subscriptionDate: '',
+        subscriptionDate:'',
         subscriptionTime: '',
         isPaid : {
           paid : (newUserData.subscriptionType !== 'none' || singleUserData.isPaid.paid === true) ? true : false,
@@ -281,6 +282,27 @@ const UserUpdate = ({
             </Form.Group>
 
             <Form.Group
+              controlId="formBasicProject3"
+              className="input-item-con-group"
+            >
+              <Form.Label className="input-item-label">Project 3 *</Form.Label>
+              <br />
+              <Form.Control
+                as="select"
+                className="item-con-input-text bg-slate-200"
+                onChange={handleChangeCreateUser}
+                name="project3"
+                value={newUserData.projectsPlan?.project3 || ""}
+              >
+                <option value="" disabled>
+                  Give Access
+                </option>
+                <option value={true}>Enable</option>
+                <option value={false}>Disable</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group
               controlId="formBasicProject4"
               className="input-item-con-group"
             >
@@ -300,6 +322,7 @@ const UserUpdate = ({
                 <option value={false}>Disable</option>
               </Form.Control>
             </Form.Group>
+            
             <Form.Group
               controlId="formBasicEmail"
               className="input-item-con-group"
@@ -310,9 +333,10 @@ const UserUpdate = ({
                 autoComplete="off"
                 className="item-con-input-text bg-slate-200"
                 type="date"
-                // placeholder="Enter password"
-                // onChange={handleChangeCreateUser}
-                // name="password"
+                onChange={handleChangeCreateUser}
+                name=""
+                disabled
+
                 value={newUserData.subscriptionDate}
               />
             </Form.Group>
@@ -329,9 +353,10 @@ const UserUpdate = ({
                 autoComplete="off"
                 className="item-con-input-text bg-slate-200"
                 type="time"
-                // placeholder="Enter mobile number"
-                // onChange={handleChangeCreateUser}
-                // name="mobileNumber"
+                disabled
+                onChange={handleChangeCreateUser}
+                name=""
+
                 value={newUserData.subscriptionTime}
               />
             </Form.Group>

@@ -30,15 +30,15 @@
   overflow: scroll;
 }
 .con-con3 {
-  max-height: 80vh;
+  max-height: 60vh;
   display: flex;
   flex-wrap: wrap;
-  width: 99%;
+  width: 100%;
   justify-content: space-around;
   overflow-y: scroll;
 }
 .con-con3::-webkit-scrollbar {
-    width: 5px;
+    width: 1px;
 }
 
 .con-con3::-webkit-scrollbar-thumb {
@@ -60,7 +60,7 @@
 }
 .input-item-con-group{
   margin: 10px 0px 0px 0px;
-  width: 45%;
+  width: 100%;
 }
 .item-con-input-text{
   margin: 10px 0px;

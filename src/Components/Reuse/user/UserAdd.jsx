@@ -78,7 +78,7 @@ const UserAdd = ({
       >
         <div className="con-con3">
           <h2 className="text-left w-full px-6 font-medium">Basic Info</h2>
-          <div className="w-full flex flex-wrap justify-between px-6  ">
+          <div className="flex md:flex-row flex-col flex-wrap justify-between px-6  ">
             <Form.Group
               controlId="formBasicEmail"
               className="input-item-con-group"
@@ -89,7 +89,7 @@ const UserAdd = ({
               <br />
               <Form.Control
                 autoComplete="off"
-                className="item-con-input-text bg-slate-200 "
+                className="item-con-input-text bg-slate-200"
                 type="text"
                 placeholder="Enter user name"
                 onChange={handleChangeCreateUser}
@@ -151,7 +151,7 @@ const UserAdd = ({
             </Form.Group>
           </div>
 
-          <div className="flex justify-end items-center mt-6">
+          <div className="flex md:flex-row flex-col gap-3 justify-center items-center mt-6">
             <button
               className={`font-semibold text-md ${tailThirdBackgroundColor} ${tailThirdBackgroundColorHover} px-6 py-2 rounded-lg`}
               onClick={handleClickCreateNewUser}
@@ -159,7 +159,7 @@ const UserAdd = ({
               Add
             </button>
             <button
-              className={`font-semibold text-md ${tailThirdBackgroundColor} ${tailThirdBackgroundColorHover} px-6 py-2 rounded-lg ml-10`}
+              className={`font-semibold text-md ${tailThirdBackgroundColor} ${tailThirdBackgroundColorHover} px-6 py-2 rounded-lg`}
               onClick={() => setAddNewUserModel(false)}
             >
               Cancel

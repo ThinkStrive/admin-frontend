@@ -11,7 +11,6 @@ const Payments = () => {
     await axios
       .get(GET_ALL_PAYMENTS)
       .then((res) => {
-        console.log(res.data)
         setAllPayments(res.data);
         setDuplicateData(res.data)
       })
@@ -53,7 +52,7 @@ const Payments = () => {
           <i className="fa-solid fa-magnifying-glass absolute top-3 left-4 text-slate-500"></i>
           <input
             type="text"
-            className="shadow-md w-[100%] rounded-lg py-2.5 bg-white pl-12 search-input text-sm"
+            className="shadow-md md:w-[100%] rounded-lg py-2.5 bg-white pl-12 search-input text-sm"
             placeholder="search"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}

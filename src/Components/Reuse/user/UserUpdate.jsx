@@ -41,13 +41,13 @@ const UserUpdate = ({
         return {
           ...prevState,
           [name]: value,
-          projectsPlan: {
-            ...prevState.projectsPlan,
-            project1: enableProjects,
-            project2: enableProjects,
-            project3: enableProjects,
-            project4: enableProjects,
-          },
+          // projectsPlan: {
+          //   ...prevState.projectsPlan,
+          //   project1: enableProjects,
+          //   project2: enableProjects,
+          //   project3: enableProjects,
+          //   project4: enableProjects,
+          // },
         };
       }
   
@@ -86,21 +86,21 @@ const UserUpdate = ({
           project3: newUserData.projectsPlan.project3,
           project4: newUserData.projectsPlan.project4,
         },
-        subscriptionDate:'',
-        subscriptionTime: '',
+        subscriptionDate:newUserData.subscriptionDate,
+        subscriptionTime: newUserData.subscriptionTime,
         isPaid : {
           paid : (newUserData.subscriptionType !== 'none' || singleUserData.isPaid.paid === true) ? true : false,
           paidType : singleUserData.isPaid.paidType === 'none' ? singleUserData.subscriptionType : 'none'
         }
       };
 
-      if(newUserData.subscriptionType === 'none'){
-        data.subscriptionDate = singleUserData.subscriptionDate || '';
-        data.subscriptionTime = singleUserData.subscriptionTime || '';
-      }else if (newUserData.subscriptionType !== singleUserData.subscriptionType) {
-        data.subscriptionDate = moment().format("YYYY-MM-DD");
-        data.subscriptionTime = moment().format("HH:mm:ss");
-      }
+      // if(newUserData.subscriptionType === 'none'){
+      //   data.subscriptionDate = singleUserData.subscriptionDate || '';
+      //   data.subscriptionTime = singleUserData.subscriptionTime || '';
+      // }else if (newUserData.subscriptionType !== singleUserData.subscriptionType) {
+      //   data.subscriptionDate = moment().format("YYYY-MM-DD");
+      //   data.subscriptionTime = moment().format("HH:mm:ss");
+      // }
   
 
       await axios
@@ -355,8 +355,8 @@ const UserUpdate = ({
                 className="item-con-input-text bg-slate-200"
                 type="date"
                 onChange={handleUserInfoEdit}
-                name=""
-                disabled
+                name="subscriptionDate"
+                // disabled
 
                 value={newUserData.subscriptionDate}
               />
@@ -374,9 +374,9 @@ const UserUpdate = ({
                 autoComplete="off"
                 className="item-con-input-text bg-slate-200"
                 type="time"
-                disabled
+                // disabled
                 onChange={handleUserInfoEdit}
-                name=""
+                name="subscriptionTime"
 
                 value={newUserData.subscriptionTime}
               />

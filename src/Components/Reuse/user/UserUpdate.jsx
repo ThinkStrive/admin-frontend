@@ -27,28 +27,49 @@ const UserUpdate = ({
   const showToast = useToast();
   const [newUserData, setNewUserData] = useState(singleUserData);
 
-  console.log('singleUserData', singleUserData)
-
-  const handleChangeCreateUser = (e) => {
+  // console.log('singleUserData', singleUserData)
+  
+  const handleUserInfoEdit = (e) => {
     const { name, value } = e.target;
+  
+    setNewUserData((prevState) => {
 
-    // Check if the name belongs to the project plan fields
-    if (["project1", "project2","project3", "project4"].includes(name)) {
-      setNewUserData((prevState) => ({
-        ...prevState,
-        projectsPlan: {
-          ...prevState.projectsPlan,
-          [name]: value, // Update specific project plan field
-        },
-      }));
-    } else {
-      // Otherwise, update the rest of newUserData
-      setNewUserData((prevState) => ({
+      // Giving access to All Projects Based on any Subscription
+
+      if (name === "subscriptionType") {
+        const enableProjects = value !== "none";
+        return {
+          ...prevState,
+          [name]: value,
+          projectsPlan: {
+            ...prevState.projectsPlan,
+            project1: enableProjects,
+            project2: enableProjects,
+            project3: enableProjects,
+            project4: enableProjects,
+          },
+        };
+      }
+  
+      // handling project Access dropdown
+      if (["project1", "project2", "project3", "project4"].includes(name)) {
+        return {
+          ...prevState,
+          projectsPlan: {
+            ...prevState.projectsPlan,
+            [name]: value, 
+          },
+        };
+      }
+  
+      // updating remaining fileds
+      return {
         ...prevState,
         [name]: value,
-      }));
-    }
+      };
+    });
   };
+  
 
   const handleClickCreateNewUser = async () => {
     setLoading(true);
@@ -157,7 +178,7 @@ const UserUpdate = ({
                 className="item-con-input-text bg-slate-200"
                 type="text"
                 placeholder="Enter user name"
-                onChange={handleChangeCreateUser}
+                onChange={handleUserInfoEdit}
                 name="userName"
                 value={newUserData.userName}
               />
@@ -174,7 +195,7 @@ const UserUpdate = ({
                 className="item-con-input-text bg-slate-200"
                 type="text"
                 placeholder="Enter user email"
-                onChange={handleChangeCreateUser}
+                onChange={handleUserInfoEdit}
                 name="userEmail"
                 value={newUserData.userEmail}
               />
@@ -191,7 +212,7 @@ const UserUpdate = ({
                 className="item-con-input-text bg-slate-200"
                 type="text"
                 placeholder="Enter password"
-                onChange={handleChangeCreateUser}
+                onChange={handleUserInfoEdit}
                 name="password"
                 value={newUserData.password}
               />
@@ -210,7 +231,7 @@ const UserUpdate = ({
                 className="item-con-input-text bg-slate-200"
                 type="text"
                 placeholder="Enter mobile number"
-                onChange={handleChangeCreateUser}
+                onChange={handleUserInfoEdit}
                 name="mobileNumber"
                 value={newUserData.mobileNumber}
               />
@@ -227,7 +248,7 @@ const UserUpdate = ({
               <Form.Control
                 as="select"
                 className="item-con-input-text bg-slate-200"
-                onChange={handleChangeCreateUser}
+                onChange={handleUserInfoEdit}
                 name="subscriptionType"
                 value={newUserData.subscriptionType}
               >
@@ -243,12 +264,12 @@ const UserUpdate = ({
               controlId="formBasicProject1"
               className="input-item-con-group"
             >
-              <Form.Label className="input-item-label">Project 1 *</Form.Label>
+              <Form.Label className="input-item-label">Data Driven Roulette Tracker *</Form.Label>
               <br />
               <Form.Control
                 as="select"
                 className="item-con-input-text bg-slate-200"
-                onChange={handleChangeCreateUser}
+                onChange={handleUserInfoEdit}
                 name="project1"
                 value={newUserData.projectsPlan?.project1 || ""}
               >
@@ -264,12 +285,12 @@ const UserUpdate = ({
               controlId="formBasicProject2"
               className="input-item-con-group"
             >
-              <Form.Label className="input-item-label">Project 2 *</Form.Label>
+              <Form.Label className="input-item-label">Roulette Strategy Analyzer *</Form.Label>
               <br />
               <Form.Control
                 as="select"
                 className="item-con-input-text bg-slate-200"
-                onChange={handleChangeCreateUser}
+                onChange={handleUserInfoEdit}
                 name="project2"
                 value={newUserData.projectsPlan?.project2 || ""}
               >
@@ -285,12 +306,12 @@ const UserUpdate = ({
               controlId="formBasicProject3"
               className="input-item-con-group"
             >
-              <Form.Label className="input-item-label">Project 3 *</Form.Label>
+              <Form.Label className="input-item-label">Baccarat *</Form.Label>
               <br />
               <Form.Control
                 as="select"
                 className="item-con-input-text bg-slate-200"
-                onChange={handleChangeCreateUser}
+                onChange={handleUserInfoEdit}
                 name="project3"
                 value={newUserData.projectsPlan?.project3 || ""}
               >
@@ -306,12 +327,12 @@ const UserUpdate = ({
               controlId="formBasicProject4"
               className="input-item-con-group"
             >
-              <Form.Label className="input-item-label">Project 4 *</Form.Label>
+              <Form.Label className="input-item-label">Spin Cycle Strategy *</Form.Label>
               <br />
               <Form.Control
                 as="select"
                 className="item-con-input-text bg-slate-200"
-                onChange={handleChangeCreateUser}
+                onChange={handleUserInfoEdit}
                 name="project4"
                 value={newUserData.projectsPlan?.project4 || ""}
               >
@@ -333,7 +354,7 @@ const UserUpdate = ({
                 autoComplete="off"
                 className="item-con-input-text bg-slate-200"
                 type="date"
-                onChange={handleChangeCreateUser}
+                onChange={handleUserInfoEdit}
                 name=""
                 disabled
 
@@ -354,7 +375,7 @@ const UserUpdate = ({
                 className="item-con-input-text bg-slate-200"
                 type="time"
                 disabled
-                onChange={handleChangeCreateUser}
+                onChange={handleUserInfoEdit}
                 name=""
 
                 value={newUserData.subscriptionTime}

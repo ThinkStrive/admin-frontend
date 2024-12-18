@@ -33,9 +33,15 @@ export const GET_ALL_FEEDBACK = `${backendUrl}/feedback/get`
 // Payment
 export const NEW_PAYMENT_USER = `${backendUrl}/payment`
 export const GET_ALL_PAYMENTS = `${backendUrl}/payment`
-export const HISTORY_DETAILS = "https://admin-be-dev.onrender.com/paid-history"
 
+//History
+export const HISTORY_DETAILS = `${backendUrl}/paid-history`
 
+// Download and Export 
+export const EXCEL_DATA = `${backendUrl}/users/docs`
+
+// send emails to user 
+export const ADMIN_EMAIL_SEND = `${backendUrl}/email/send`
 
 
 

@@ -47,7 +47,7 @@ const SideNav = ({ toggleSideNav }) => {
         ))}
         
       </div>
-      <div className="px-3 mb-5">
+      <div className="px-3 mb-2">
         <Link
           to="/auth/login"
           className="sideNav-list-item flex items-center text-md group"

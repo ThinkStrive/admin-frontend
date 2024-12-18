@@ -4,6 +4,7 @@ import { FaUser, FaCalendarAlt , FaClock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { GrNotes } from "react-icons/gr";
 import { filterUsersByDate } from "../../utils/helpers"; 
+import { HISTORY_DETAILS } from "../../api/ApiDetails";
 
 const PaidHistory = () => {
   const [ data, setData ] = useState([]);
@@ -16,7 +17,7 @@ const PaidHistory = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://admin-be-dev.onrender.com/paid-history"
+        HISTORY_DETAILS
       );
       const { data } = response?.data;
       setData(data); 

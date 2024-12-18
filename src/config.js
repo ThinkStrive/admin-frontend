@@ -2,8 +2,8 @@
 // export const backendUrl = 'https://scratchback1.cloudjiffy.net'
 export const backendUrl = 'https://rouletteadminbackend.vercel.app'
 // export const backendUrl = 'http://localhost:7050'
-// export const backendUrl = 'https://admin-be-dev.onrender.com';
-export const frontendUrl = import.meta.env.VITE_FRONTEND_URL || ''
+// export const backendUrl = 'https://admin-be-dev.onrender.com'
+// export const frontendUrl = import.meta.env.VITE_FRONTEND_URL || ''
 
 
 

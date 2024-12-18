@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ALL_USER } from "../../api/ApiDetails";
+import { EXCEL_DATA, GET_ALL_USER } from "../../api/ApiDetails";
 import { useEffect, useState } from "react";
 import Loading from "../Resources/Loading";
 import { BsStars , BsGraphUpArrow } from "react-icons/bs";
@@ -11,6 +11,9 @@ import { dailySubcriptionPrice , weeklySubscriptionPrice , monthlySubscriptionPr
 import UserDoughnutChart from "../Charts/UserDoughnutChart";
 import UserBarChart from "../Charts/UserBarChart";
 import { filterUsersByDate } from "../../utils/helpers";
+import { utils , writeFile } from "xlsx";
+import { useSnackbar } from "notistack";
+import { FiDownload } from "react-icons/fi";
 
 const Dashboard = () => {
   const [allUserData, setAllUserData] = useState([]);
@@ -37,6 +40,8 @@ const { accWithinDay ,accWithinWeek , accWithinMonth , accWithin3Month , accWith
   const [ usersWithPlanCount , setUsersWithPlanCount ] = useState(0);
   const [ usersWithoutPlanCount , setUsersWithoutPlanCount ] = useState(0);
 
+// Toast Notification
+const { enqueueSnackbar } = useSnackbar();
 
   const filterUsersBySubscription = (users)=>{
     const oneDaySub = users.filter(user=>user.subscriptionType === "daily").length;
@@ -87,6 +92,26 @@ const { accWithinDay ,accWithinWeek , accWithinMonth , accWithin3Month , accWith
       setLoading(false);
     }
   };
+
+  const fetchAndExportData = async () =>{
+    try {
+      const response = await axios.get(EXCEL_DATA);
+      const { data , status } = response?.data ;
+      
+      if(status){
+        const worksheet = utils.json_to_sheet(data);
+        const workbook = utils.book_new();
+        utils.book_append_sheet(workbook,worksheet,"user details");
+        writeFile(workbook,"userDetails.xlsx");
+        enqueueSnackbar("File Exported Successfully!",{variant:"success",autoHideDuration:2000});
+
+      }else {
+        enqueueSnackbar(`Failed-${response.message}`,{variant:"error",autoHideDuration:2000});
+      }   
+    } catch (error) {
+      enqueueSnackbar(`Export Failed-${error.message}`,{variant:"error",autoHideDuration:2000});
+    }
+  }
   
   
   useEffect(() => {
@@ -95,7 +120,17 @@ const { accWithinDay ,accWithinWeek , accWithinMonth , accWithin3Month , accWith
 
   return (
     <div className="w-full h-full pt-2 pb-4 px-6">
+      <div className="flex items-center justify-between max-sm:flex-col max-sm:mb-5">
       <div className="text-lg font-semibold my-5">Admin Dashboard <BsGraphUpArrow className="inline-block ml-2 size-5"/></div>
+      <div>
+      <button
+      className="bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-700 text-white font-medium py-1.5 px-2  md:py-2 md:px-4 rounded-lg shadow-lg transform transition duration-300 ease-in-out hover:scale-95 hover:shadow-2xl "
+       onClick={fetchAndExportData}
+      >
+      Download <FiDownload className="inline-flex items-center"/>
+      </button>
+      </div>
+      </div>
 
       {loading ? ( // Show loading spinner/message when loading
         <div className="w-full h-[80%] flex justify-center items-center">
@@ -114,12 +149,12 @@ const { accWithinDay ,accWithinWeek , accWithinMonth , accWithin3Month , accWith
 
                         {/* Doughnut chart */}
                 <div>
-                  <p className="text-center text-lg font-semibold mb-3">users</p>
+                  <p className="text-center text-base md:text-lg font-semibold mb-3">Users</p>
                   <UserDoughnutChart users={{usersWithPlanCount,usersWithoutPlanCount}}/>
                 </div>
                         {/* Bar chart */}
                 <div>
-                  <p className="text-center text-lg font-semibold mt-4">user Traffic</p>
+                  <p className="text-center text-base md:text-lg font-semibold mt-4">User Traffic</p>
                   <UserBarChart usersCount ={[accWithinDay.length,accWithinWeek.length,accWithinMonth.length,accWithin3Month.length,accWithin6Month.length,accWithinYear.length]}/>
                 </div>
               </div>
@@ -131,9 +166,9 @@ const { accWithinDay ,accWithinWeek , accWithinMonth , accWithin3Month , accWith
               </p>
               <div className="flex justify-between px-3 py-4 gap-2">
                 <div className="border border-gray-300 w-3/12 p-5 rounded-md bg-blue-600 text-slate-100">
-                  <p className="text-base font-medium">Total </p>
+                  <p className="text-lg md:text-xl font-medium">Total </p>
                   <div className="flex flex-col items-center my-3 gap-1">
-                    <p className="text-3xl font-semibold">{calculateTotalSubscriptionValue()}</p>
+                    <p className="text-2xl md:text-3xl font-semibold">{calculateTotalSubscriptionValue()}</p>
                     <p className="text-base">
                       {" "}
                       since Launch
@@ -142,9 +177,9 @@ const { accWithinDay ,accWithinWeek , accWithinMonth , accWithin3Month , accWith
                   </div>
                 </div>
                 <div className="border border-gray-400 w-3/12 p-5 bg-slate-50 rounded-md">
-                  <p className="text-base font-medium">Monthly</p>
+                  <p className="text-lg md:text-xl font-medium">Monthly</p>
                   <div className="flex flex-col items-center my-3 gap-1">
-                    <p className="text-3xl text-blue-800 font-semibold">
+                    <p className="text-2xl md:text-3xl text-blue-800 font-semibold">
                       {calculateOtherSubscriptionValue(monthlySubCount,monthlySubscriptionPrice)}
                     </p>
                     <p className="text-blue-800 text-base">
@@ -155,9 +190,9 @@ const { accWithinDay ,accWithinWeek , accWithinMonth , accWithin3Month , accWith
                   </div>
                 </div>
                 <div className="border border-gray-400 w-3/12 p-5 bg-slate-50 rounded-md">
-                  <p className="text-base font-medium">Weekly</p>
+                  <p className="text-lg md:text-xl font-medium">Weekly</p>
                   <div className="flex flex-col items-center my-3 gap-1">
-                    <p className="text-3xl text-blue-800 font-semibold">{calculateOtherSubscriptionValue(weeklySubCount,weeklySubscriptionPrice)}</p>
+                    <p className="text-2xl md:text-3xl text-blue-800 font-semibold">{calculateOtherSubscriptionValue(weeklySubCount,weeklySubscriptionPrice)}</p>
                     <p className="text-blue-800 text-base">
                       {" "}
                       since Launch
@@ -166,9 +201,9 @@ const { accWithinDay ,accWithinWeek , accWithinMonth , accWithin3Month , accWith
                   </div>
                 </div>
                 <div className="border border-gray-400 w-3/12 p-5 bg-slate-50 rounded-md">
-                  <p className="text-base font-medium">Daily</p>
+                  <p className="text-lg md:text-xl font-medium">Daily</p>
                   <div className="flex flex-col items-center my-3 gap-1">
-                    <p className="text-3xl text-blue-800 font-semibold">{calculateOtherSubscriptionValue(dailySubCount,dailySubcriptionPrice)}</p>
+                    <p className="text-2xl md:text-3xl text-blue-800 font-semibold">{calculateOtherSubscriptionValue(dailySubCount,dailySubcriptionPrice)}</p>
                     <p className="text-blue-800 text-base">
                       {" "}
                       since Launch
@@ -185,9 +220,9 @@ const { accWithinDay ,accWithinWeek , accWithinMonth , accWithin3Month , accWith
               </p>
               <div className="flex justify-between px-3 py-4 gap-2">
                 <div className="border border-gray-300 w-2/6 p-5 rounded-md bg-blue-600 text-slate-100">
-                  <p className="text-base font-medium">Total</p>
+                  <p className="text-lg md:text-xl font-medium">Total</p>
                   <div className="flex flex-col items-center my-3">
-                    <p className="text-3xl font-semibold">{allUserData.length}</p>
+                    <p className="text-2xl md:text-3xl font-semibold">{allUserData.length}</p>
                     <p className=" text-base">
                       {" "}
                       since Launch
@@ -196,9 +231,9 @@ const { accWithinDay ,accWithinWeek , accWithinMonth , accWithin3Month , accWith
                   </div>
                 </div>
                 <div className="border border-gray-400 w-2/6 p-5 bg-slate-50 rounded-md">
-                  <p className="text-base font-medium">Month</p>
+                  <p className="text-lg md:text-xl font-medium">Month</p>
                   <div className="flex flex-col items-center my-3 gap-1">
-                    <p className="text-3xl text-blue-800 font-semibold">
+                    <p className="text-2xl md:text-3xl text-blue-800 font-semibold">
                       {accWithinMonth.length}
                     </p>
                     <p className="text-blue-800 text-base">
@@ -209,9 +244,9 @@ const { accWithinDay ,accWithinWeek , accWithinMonth , accWithin3Month , accWith
                   </div>
                 </div>
                 <div className="border border-gray-400 w-2/6 p-5 bg-slate-50 rounded-md">
-                  <p className="text-base font-medium">Week</p>
+                  <p className="text-lg md:text-xl font-medium">Week</p>
                   <div className="flex flex-col items-center my-3 gap-1">
-                    <p className="text-3xl text-blue-800 font-semibold">
+                    <p className="text-2xl md:text-3xl text-blue-800 font-semibold">
                       {accWithinWeek.length}
                     </p>
                     <p className="text-blue-800 text-base">
@@ -222,9 +257,9 @@ const { accWithinDay ,accWithinWeek , accWithinMonth , accWithin3Month , accWith
                   </div>
                 </div>
                 <div className="border border-gray-400 w-2/6 p-5 bg-slate-50 rounded-md">
-                  <p className="text-base font-medium">Day</p>
+                  <p className="text-lg md:text-xl font-medium">Day</p>
                   <div className="flex flex-col items-center my-3 gap-1">
-                    <p className="text-3xl text-blue-800 font-semibold">{accWithinDay.length}</p>
+                    <p className="text-2xl md:text-3xl text-blue-800 font-semibold">{accWithinDay.length}</p>
                     <p className="text-blue-800 text-base">
                       {" "}
                       last 24 Hours

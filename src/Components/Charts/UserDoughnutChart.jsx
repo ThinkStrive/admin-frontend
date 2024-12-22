@@ -6,9 +6,7 @@ ChartJS.register(Tooltip,Legend,ArcElement ,Title);
 
 const UserDoughnutChart = ({users}) => {
 
-  const { totalUsersCount , noSubUsersCount } = users;
-  const usersWithPlanCount = totalUsersCount - noSubUsersCount ;
-  const usersWithoutPlanCount = noSubUsersCount ;
+  const { usersWithPlanCount,usersWithoutPlanCount } = users;
   
   const options = {
     responsive:true,

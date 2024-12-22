@@ -43,12 +43,6 @@ export const EXCEL_DATA = `${backendUrl}/users/docs`
 // send emails to user 
 export const ADMIN_EMAIL_SEND = `${backendUrl}/email/send`
 
-// dashboard - get users by registered time frame
-export const USERS_BY_REGISTRATION_DATE = `${backendUrl}/users/by-registration-date`
-
-// dashboard - get users based on subscribed project
-export const USERS_BY_PROJECT_SUBSCRIPTION = `${backendUrl}/users/by-subscription`
-
 
 
 

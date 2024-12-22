@@ -15,7 +15,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
       >
         <div className="modal-header">
           <h2 className='font-semibold text-lg' >{title}</h2>
-          <button className="modal-close-button relative top-[30px]" onClick={onClose} >
+          <button className="modal-close-button" onClick={onClose} >
             <i className='fa-solid fa-x font-bold text-lg' ></i>
           </button>
         </div>

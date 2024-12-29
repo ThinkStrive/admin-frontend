@@ -59,10 +59,12 @@ const Users = () => {
   };
 
   useEffect(() => {
-   
     fetchUsersData();
-   
   }, []);
+
+  useEffect(()=> {
+    fetchUsersData();
+  },[isStateChanged])
 
   useEffect(() => {
     fetchUsersData();
@@ -148,28 +150,32 @@ const Users = () => {
             {/* users Data Table */}
             <div className="overflow-x-auto mt-2">
               <div className="min-w-[1100px]">
-                <div className="grid grid-cols-[0.6fr,1fr,0.6fr,0.7fr,0.4fr,0.2fr] gap-5 bg-gray-800 text-slate-200 p-3 rounded-md text-base mb-1">
+                <div className="grid grid-cols-[1fr,1.5fr,0.7fr,0.8fr,0.7fr,0.8fr,0.4fr] gap-5 bg-gray-800 text-slate-200 p-3 rounded-md text-base mb-1">
                   <p className="ml-3 font-medium">
                     <FaUser className="inline-block mr-1" />
                     Name
                   </p>
-                  <p className="font-medium">
+                  <p className="font-medium ml-4">
                     <MdEmail className="inline-block mr-1" />
                     Email ID
                   </p>
-                  <p className="ml-1 font-medium">
-                    <FaMobile className="inline-block mr-1" />
-                    Mobile Number
-                  </p>
-                  <p className="text-center font-medium">
-                    <FaCalendarAlt className="inline-block mr-1" />
-                    Subscribed
-                  </p>
-                  <p className="ml-1 font-medium">
+                  <p className="font-medium ml-1">
                     <BsCashCoin className="inline-block mr-1" />
-                    Plan
+                    Roulette
+                  </p>
+                  <p className="font-medium ml-1">
+                    <FaCalendarAlt className="inline-block mr-1" />
+                    Roulette
                   </p>
                   <p className="font-medium">
+                    <BsCashCoin className="inline-block mr-1" />
+                    Baccarat
+                  </p>
+                  <p className="font-medium ml-2">
+                    <FaCalendarAlt className="inline-block mr-1" />
+                    Baccarat
+                  </p>
+                  <p className="font-medium ml-1">
                     <FaEdit className="inline-block mr-1" />
                     Edit
                   </p>

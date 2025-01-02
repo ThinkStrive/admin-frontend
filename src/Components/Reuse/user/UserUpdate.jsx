@@ -262,9 +262,10 @@ const UserUpdate = ({
                   onChange={handleInputChange}
                 >
                   <option value="none">No Plan</option>
+                  <option value="twoDays">48 Hours</option>
+                  <option value="monthly">Monthly</option>
                   <option value="daily">Daily</option>
                   <option value="weekly">Weekly</option>
-                  <option value="monthly">Monthly</option>
                 </Form.Select>
               </Form.Group>
 
@@ -348,10 +349,11 @@ const UserUpdate = ({
                   onChange={handleInputChange}
                 >
                   <option value="none">No Plan</option>
+                  <option value="twoDays">48 Hours</option>
+                  <option value="monthly">Monthly</option>
                   <option value="hourly">1 Hour</option>
                   <option value="daily">Daily</option>
                   <option value="weekly">Weekly</option>
-                  <option value="monthly">Monthly</option>
                 </Form.Select>
               </Form.Group>
 

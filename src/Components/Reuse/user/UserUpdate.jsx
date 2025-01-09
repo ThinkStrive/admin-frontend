@@ -262,6 +262,7 @@ const UserUpdate = ({
                   onChange={handleInputChange}
                 >
                   <option value="none">No Plan</option>
+                  <option value="thirtyMinutes">30 Minutes</option>
                   <option value="twoDays">48 Hours</option>
                   <option value="monthly">Monthly</option>
                   <option value="daily">Daily</option>
@@ -349,6 +350,7 @@ const UserUpdate = ({
                   onChange={handleInputChange}
                 >
                   <option value="none">No Plan</option>
+                  <option value="thirtyMinutes">30 Minutes</option>
                   <option value="twoDays">48 Hours</option>
                   <option value="monthly">Monthly</option>
                   <option value="hourly">1 Hour</option>

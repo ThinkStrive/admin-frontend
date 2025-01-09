@@ -44,46 +44,49 @@ const Payments = () => {
   }, [searchInput, duplicateData]);
 
 
-  console.log('all payments', allPayments)
+  // console.log('all payments', allPayments)
   return (
-    <div className="w-full h-full py-4 px-6">
-      <div className="flex justify-between">
-        <div className="w-[30%] relative">
-          <i className="fa-solid fa-magnifying-glass absolute top-3 left-4 text-slate-500"></i>
-          <input
-            type="text"
-            className="shadow-md md:w-[100%] rounded-lg py-2.5 bg-white pl-12 search-input text-sm"
-            placeholder="search"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-          />
-        </div>
-      </div>
-      <div className="flex justify-between my-4">
-        <h4 className="font-semibold text-lg">
-          Total Payments - {allPayments.length}
-        </h4>
-      </div>
+    // <div className="w-full h-full py-4 px-6">
+    //   <div className="flex justify-between">
+    //     <div className="w-[30%] relative">
+    //       <i className="fa-solid fa-magnifying-glass absolute top-3 left-4 text-slate-500"></i>
+    //       <input
+    //         type="text"
+    //         className="shadow-md md:w-[100%] rounded-lg py-2.5 bg-white pl-12 search-input text-sm"
+    //         placeholder="search"
+    //         value={searchInput}
+    //         onChange={(e) => setSearchInput(e.target.value)}
+    //       />
+    //     </div>
+    //   </div>
+    //   <div className="flex justify-between my-4">
+    //     <h4 className="font-semibold text-lg">
+    //       Total Payments - {allPayments.length}
+    //     </h4>
+    //   </div>
 
-      {allPayments.length !== 0 ? (
-        <div className="w-full mt-4 max-h-[95%] flex flex-wrap justify-start items-start">
-          {allPayments.map((payment, index) => (
-            <div
-              key={index}
-              className="shadow-md bg-white rounded-xl p-3 m-2"
-            >
-              <h2>{payment.amount}</h2>
-              <h2 className="text-sm" >{payment.customer_details.mail}</h2>
-              <h2 className="text-sm" >{payment.customer_details.number}</h2> 
-              <p className="text-sm" >{moment(payment.date).format('YYYY-MM-DD')} {moment(payment.time, 'HH:mm:ss').format('hh:mm:ss A')}</p>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="w-full h-[80%] flex justify-center items-center">
-          <p>No Data's available</p>
-        </div>
-      )}
+    //   {allPayments.length !== 0 ? (
+    //     <div className="w-full mt-4 max-h-[95%] flex flex-wrap justify-start items-start">
+    //       {allPayments.map((payment, index) => (
+    //         <div
+    //           key={index}
+    //           className="shadow-md bg-white rounded-xl p-3 m-2"
+    //         >
+    //           <h2>{payment.amount}</h2>
+    //           <h2 className="text-sm" >{payment.customer_details.mail}</h2>
+    //           <h2 className="text-sm" >{payment.customer_details.number}</h2> 
+    //           <p className="text-sm" >{moment(payment.date).format('YYYY-MM-DD')} {moment(payment.time, 'HH:mm:ss').format('hh:mm:ss A')}</p>
+    //         </div>
+    //       ))}
+    //     </div>
+    //   ) : (
+    //     <div className="w-full h-[80%] flex justify-center items-center">
+    //       <p>No Data's available</p>
+    //     </div>
+    //   )}
+    // </div>
+    <div>
+      Payments coming soon....
     </div>
   );
 };
